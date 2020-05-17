@@ -32,6 +32,10 @@ const val ROLE_ID = "roleId"
 
 const val RUN_ID = "runId"
 
+const val CONTEST_ID = "contestId"
+
+const val CODE_ID = "codeId"
+
 const val TYPE = "type"
 
 const val DOWNLOADED = "downloaded"

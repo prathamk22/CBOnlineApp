@@ -24,6 +24,8 @@ import com.codingblocks.cbonlineapp.library.LibraryRepository
 import com.codingblocks.cbonlineapp.library.LibraryViewModel
 import com.codingblocks.cbonlineapp.mycourse.MyCourseRepository
 import com.codingblocks.cbonlineapp.mycourse.MyCourseViewModel
+import com.codingblocks.cbonlineapp.mycourse.codechallenge.CodeChallengeRepository
+import com.codingblocks.cbonlineapp.mycourse.codechallenge.CodeChallengeViewModel
 import com.codingblocks.cbonlineapp.mycourse.leaderboard.LeaderboardViewModel
 import com.codingblocks.cbonlineapp.mycourse.player.VideoPlayerRepository
 import com.codingblocks.cbonlineapp.mycourse.player.VideoPlayerViewModel
@@ -46,6 +48,7 @@ val viewModelModule = module {
     viewModel { LeaderboardViewModel() }
     viewModel { NotificationViewModel(get()) }
     viewModel { (handle: SavedStateHandle) -> VideoPlayerViewModel(handle, get(), get(), get()) }
+    viewModel { (handle: SavedStateHandle) -> CodeChallengeViewModel(handle, get(), get()) }
     viewModel { SettingsViewModel(get()) }
     viewModel { JobsViewModel(get()) }
     viewModel { JobDetailViewModel(get(), get()) }
@@ -69,6 +72,7 @@ val viewModelModule = module {
     single { LibraryRepository(get(), get(), get(), get()) }
     single { DashboardHomeRepository(get(), get(), get(), get()) }
     single { VideoPlayerRepository(get(), get(), get(), get(), get()) }
+    single { CodeChallengeRepository() }
     single { QuizRepository(get()) }
     single { JobRepository(get()) }
     single { MyCourseRepository(get(), get(), get(), get(), get(), get(), get()) }
@@ -85,9 +89,9 @@ val databaseModule = module {
 
     single {
         Room.databaseBuilder(
-                androidApplication(),
-                AppDatabase::class.java, "online-app-database"
-            )
+            androidApplication(),
+            AppDatabase::class.java, "online-app-database"
+        )
             .fallbackToDestructiveMigration()
             .build()
     }

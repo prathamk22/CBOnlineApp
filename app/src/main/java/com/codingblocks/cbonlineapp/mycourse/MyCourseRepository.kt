@@ -1,5 +1,6 @@
 package com.codingblocks.cbonlineapp.mycourse
 
+import android.util.Log
 import com.codingblocks.cbonlineapp.database.BookmarkDao
 import com.codingblocks.cbonlineapp.database.ContentDao
 import com.codingblocks.cbonlineapp.database.CourseWithInstructorDao
@@ -184,7 +185,7 @@ class MyCourseRepository(
                             contentQna1.updatedAt
                         )
                 }
-                "code_challenge" -> content.codeChallenge?.let { codeChallenge ->
+                "code-challenge" -> content.codeChallenge?.let { codeChallenge ->
                     contentCodeChallenge =
                         ContentCodeChallenge(
                             codeChallenge.id,

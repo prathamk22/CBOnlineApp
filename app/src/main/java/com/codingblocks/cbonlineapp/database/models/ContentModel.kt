@@ -45,5 +45,8 @@ data class ContentModel(
     var sectionId: String = ""
 
     @Ignore
+    var contestId: String = ""
+
+    @Ignore
     var premium: Boolean = true
 }

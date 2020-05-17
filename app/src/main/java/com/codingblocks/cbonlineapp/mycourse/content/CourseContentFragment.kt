@@ -1,6 +1,7 @@
 package com.codingblocks.cbonlineapp.mycourse.content
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -29,20 +30,11 @@ import com.codingblocks.cbonlineapp.database.ListObject
 import com.codingblocks.cbonlineapp.database.models.ContentModel
 import com.codingblocks.cbonlineapp.database.models.SectionModel
 import com.codingblocks.cbonlineapp.mycourse.MyCourseViewModel
+import com.codingblocks.cbonlineapp.mycourse.codechallenge.CodeChallenge
 import com.codingblocks.cbonlineapp.mycourse.player.VideoPlayerActivity
 import com.codingblocks.cbonlineapp.mycourse.quiz.QuizActivity
-import com.codingblocks.cbonlineapp.util.CODE
-import com.codingblocks.cbonlineapp.util.CONTENT_ID
-import com.codingblocks.cbonlineapp.util.DOCUMENT
-import com.codingblocks.cbonlineapp.util.DownloadWorker
-import com.codingblocks.cbonlineapp.util.LECTURE
+import com.codingblocks.cbonlineapp.util.*
 import com.codingblocks.cbonlineapp.util.PreferenceHelper.Companion.getPrefs
-import com.codingblocks.cbonlineapp.util.QNA
-import com.codingblocks.cbonlineapp.util.RUN_ATTEMPT_ID
-import com.codingblocks.cbonlineapp.util.SECTION_ID
-import com.codingblocks.cbonlineapp.util.SectionDownloadService
-import com.codingblocks.cbonlineapp.util.VIDEO
-import com.codingblocks.cbonlineapp.util.VIDEO_ID
 import com.codingblocks.cbonlineapp.util.extensions.applyDim
 import com.codingblocks.cbonlineapp.util.extensions.clearDim
 import com.codingblocks.cbonlineapp.util.extensions.getLoadingDialog
@@ -358,12 +350,14 @@ class CourseContentFragment : BaseCBFragment(), AnkoLogger, DownloadStarter {
                                 )
                             } else
                                 checkSection(premium)
-                        CODE ->
-                            requireContext().showDialog(
-                                "unavailable",
-                                secondaryText = R.string.unavailable,
-                                primaryButtonText = R.string.ok,
-                                cancelable = true
+                        CODE ->{
+                            startActivity(
+                                intentFor<CodeChallenge>(
+                                    CONTENT_ID to ccid,
+                                    SECTION_ID to sectionId,
+                                    CONTEST_ID to contentCode.codeContestId.toString(),
+                                    CODE_ID to contentCode.codeUid
+                                )
                             )
                     }
                 }
